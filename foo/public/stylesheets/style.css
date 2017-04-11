@@ -1,0 +1,49 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image:url("../images/green.png");
+  margin: auto;
+  width: 50%;
+  /*border: 3px solid gainsboro;*/
+}
+
+.center {
+  margin: auto;
+  width: 50%;
+  border: 3px solid gainsboro;
+  padding: 10px;
+}
+
+form{
+  background-color: #bbbbbb;
+  padding: 50px;
+}
+
+.button #button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: blue;
+  width: 30px;
+  height: 14px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#svg{
+  border: 3px solid gainsboro;
+  width: 50%;
+  height: 50%;
+}
+#cpu_div object{ width:25%;display: inline-block}
+#player_div object{ width:25%;display: inline-block }
+
+a {
+  color: #00B7FF;
+}
+
+.game{
+  display: block;
+}
