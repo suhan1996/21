@@ -72,7 +72,7 @@ function main(){
         for(let x=0;x<InputList.length;x++){
             let num=x%2;
             if(num){
-                player_div.appendChild(add_svg("../../images/SVG-cards-1.3/"+game_cards[x]+".svg"));
+                player_div.appendChild(add_svg("../images/SVG-cards-1.3/"+game_cards[x]+".svg"));
                 let card = game_cards[x][0];
                 if (card == "a"){
                     plyhasA += 1;
@@ -82,7 +82,7 @@ function main(){
 
             }
             else{
-                cpu_div.appendChild(add_svg("../../images/SVG-cards-1.3/"+game_cards[x]+".svg"));
+                cpu_div.appendChild(add_svg("../images/SVG-cards-1.3/"+game_cards[x]+".svg"));
                 let card = game_cards[x][0];
                 if (card == "a"){
                     cpuhasA += 1;
@@ -118,8 +118,8 @@ function main(){
         hit.appendChild(elt("strong","   hit   "));
         stand.appendChild(elt("strong","stand"));
         hit.addEventListener('click',function(event){
-            player_div.appendChild(add_svg("../../images/SVG-cards-1.3/"+ply_cards[0]+".svg"));
-            cpu_div.appendChild(add_svg_hidden("../../images/SVG-cards-1.3/"+cpu_cards[0]+".svg"));
+            player_div.appendChild(add_svg("../images/SVG-cards-1.3/"+ply_cards[0]+".svg"));
+            cpu_div.appendChild(add_svg_hidden("../images/SVG-cards-1.3/"+cpu_cards[0]+".svg"));
             let card = ply_cards[0][0];
             let card1 = cpu_cards[0][0];
             if (card == "a"){
