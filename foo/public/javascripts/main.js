@@ -118,8 +118,8 @@ function main(){
         hit.appendChild(elt("strong","   hit   "));
         stand.appendChild(elt("strong","stand"));
         hit.addEventListener('click',function(event){
-            player_div.appendChild(add_svg("../images/SVG-cards-1.3/"+ply_cards[0]+".svg"));
-            cpu_div.appendChild(add_svg_hidden("../images/SVG-cards-1.3/"+cpu_cards[0]+".svg"));
+            player_div.appendChild(add_svg("../../images/SVG-cards-1.3/"+ply_cards[0]+".svg"));
+            cpu_div.appendChild(add_svg_hidden("../../images/SVG-cards-1.3/"+cpu_cards[0]+".svg"));
             let card = ply_cards[0][0];
             let card1 = cpu_cards[0][0];
             if (card == "a"){
