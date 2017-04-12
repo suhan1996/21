@@ -9,6 +9,11 @@ function main(){
     start.addEventListener('click',function(evt){
         form.style.display = 'none';
         evt.preventDefault();
+        if(document.querySelector('#startValues').value.indexOf(',')==-1&&document.querySelector('#startValues').value.length>1){
+            alert("Input invalid, should be separated with comma");
+            console.log("invalid");
+            window.location.reload();
+        }
         InputList = (document.querySelector('#startValues').value).split(',');
         if(InputList[0] == ""){
             InputList = [];
