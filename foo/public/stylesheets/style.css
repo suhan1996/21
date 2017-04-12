@@ -9,9 +9,12 @@ body {
 
 .center {
   margin: auto;
-  width: 50%;
-  border: 3px solid gainsboro;
-  padding: 10px;
+  width: 80%;
+  /*border: 3px solid gainsboro;*/
+  padding-top: 5vm;
+  padding-bottom: 5vm ;
+  align-items: center;
+  align-content: center;
 }
 
 form{
@@ -19,17 +22,34 @@ form{
   padding: 50px;
 }
 
-.button #button {
-  background-color: #4CAF50; /* Green */
+.button {
+  margin: auto;
   border: none;
-  color: blue;
-  width: 30px;
-  height: 14px;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
+  align-items: center;
+  align-content: center;
+  color:wheat;
+  border-radius: 2px;
+  margin-left: 25%;
+  padding: 10px 24px;
   font-size: 16px;
+  background-color: rgba(0,0,0,0.5);
+  display: inline-block;
+
+}
+.hidden{
+  display: none;
+  height: 0px;
+  margin-right: 2%;
+  margin-left: 2%;
+  border-top: 14vmax solid rgba(0,0,0,0.5);
+}
+.score{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  border: 5px;
+  color:wheat;
+  background-color: rgba(0,0,0,0.5);
 }
 
 #svg{

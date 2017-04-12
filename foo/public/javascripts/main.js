@@ -10,6 +10,9 @@ function main(){
         form.style.display = 'none';
         evt.preventDefault();
         InputList = (document.querySelector('#startValues').value).split(',');
+        if(InputList[0] == ""){
+            InputList = [];
+        }
         //console.log(InputList);
         let InputList_1 = [];
         InputList.forEach((x)=>{
@@ -47,30 +50,122 @@ function main(){
         const player_div = document.createElement("div");
         const cpuScore_div = document.createElement("div");
         const playerScore_div = document.createElement("div");
+        const hit = document.createElement("button");
+        const stand = document.createElement("button");
         cpu_div.id = "cpu_div";
         player_div.id = "player_div";
-        cpuScore_div.id = "#button";
-        playerScore_div.class = "button";
+        cpu_div.classList.add("center");
+        player_div.classList.add("center");
+        cpuScore_div.classList.add( "score", "center");
+        playerScore_div.classList.add( "score","center");
+        hit.classList.add("button");
+        stand.classList.add("button");
         game_field.appendChild(cpuScore_div);
         game_field.appendChild(cpu_div);
         game_field.appendChild(playerScore_div);
         game_field.appendChild(player_div);
+        game_field.appendChild(hit);
+        game_field.appendChild(stand);
+        let ply_sum = 0, cpu_sum = 0, plyhasA = 0, cpuhasA = 0;
+        console.log("InputList.length",InputList.length,InputList);
+        if(InputList.length>0){
         for(let x=0;x<InputList.length;x++){
-            let num=x%2
+            let num=x%2;
             if(num){
                 player_div.appendChild(add_svg("../images/SVG-cards-1.3/"+game_cards[x]+".svg"));
+                let card = game_cards[x][0];
+                if (card == "a"){
+                    plyhasA += 1;
+                }
+                ply_sum+=card2num(card);
+                ply_cards.splice(0,1);
 
             }
             else{
                 cpu_div.appendChild(add_svg("../images/SVG-cards-1.3/"+game_cards[x]+".svg"));
+                let card = game_cards[x][0];
+                if (card == "a"){
+                    cpuhasA += 1;
+                }
+                cpu_sum+=card2num(card);
+                cpu_cards.splice(0,1);
             }
         }
 
+        for(let q=0;q<plyhasA;q++){
+            if(ply_sum+10<22){
+                ply_sum+=10;
+            }
+            else{
+                ply_sum+=1;
+            }
+        }
+        for(let q=0;q<cpuhasA;q++){
+            if(cpu_sum+10<22){
+                cpu_sum+=10;
+            }
+            else{
+                cpu_sum+=1;
+            }
+        }
+        }else{
+            InputList=[];
+        }
+        console.log("sum",ply_sum,cpu_sum);
 
-        playerScore_div.appendChild(elt("strong", "Karl Popper"));
-        cpuScore_div.appendChild(elt("strong", "Karl Popper"));
+        playerScore_div.appendChild(elt("strong","Player Total:" + ply_sum.toString()));
+        cpuScore_div.appendChild(elt("strong","Computer Total: You'll See"));
+        hit.appendChild(elt("strong","   hit   "));
+        stand.appendChild(elt("strong","stand"));
+        hit.addEventListener('click',function(event){
+            player_div.appendChild(add_svg("../images/SVG-cards-1.3/"+ply_cards[0]+".svg"));
+            cpu_div.appendChild(add_svg_hidden("../images/SVG-cards-1.3/"+cpu_cards[0]+".svg"));
+            let card = ply_cards[0][0];
+            let card1 = cpu_cards[0][0];
+            if (card == "a"){
+                if(ply_sum+10<22){
+                    ply_sum+=10;
+                }
+                else{
+                    ply_sum+=1
+                }
+            }
+            if (card1 == "a"){
+                if(cpu_sum+10<22){
+                    cpu_sum+=10;
+                }
+                else{
+                    cpu_sum+=1
+                }
+            }
+            ply_sum+=card2num(card);
+            cpu_sum+=card2num(card1);
+            ply_cards.splice(0,1);
+            cpu_cards.splice(0,1);
+            playerScore_div.replaceChild(elt("strong","Player Total:" + ply_sum.toString()),playerScore_div.getElementsByTagName('strong')[0]);
+            //playerScore_div.replaceChild(elt("strong","CPU Total:" + ply_sum.toString()),playerScore_div.getElementsByTagName('strong')[0]);
+            if((ply_sum>21)&&(cpu_sum<22)){
+                end_game(playerScore_div,cpuScore_div,cpu_div,cpu_sum,"You Lost!");
+            }
+            if((ply_sum>21)&&(cpu_sum>21)){
+                if(ply_sum>=cpu_sum){
+                    end_game(playerScore_div,cpuScore_div,cpu_div,cpu_sum,"You Lost!");
+                }
+                else{
+                    end_game(playerScore_div,cpuScore_div,cpu_div,cpu_sum,"You Win!");
+                }
+            }
+        });
+        stand.addEventListener('click',function(event){
 
-    });
+            if((ply_sum>cpu_sum)||(cpu_sum>21)){
+                end_game(playerScore_div,cpuScore_div,cpu_div,cpu_sum,"You Win!");
+            }
+            else{
+                end_game(playerScore_div,cpuScore_div,cpu_div,cpu_sum,"You Lost!")
+            }
+        });
+        });
 
 }
 function elt(type) {
@@ -85,6 +180,14 @@ function elt(type) {
 }
 function add_svg(link) {
     var node = document.createElement('object');
+    node.id = "svg1";
+    node.data = link;
+    node.type = "image/svg+xml";
+    return node;
+}
+function add_svg_hidden(link) {
+    var node = document.createElement('object');
+    node.classList.add("hidden");
     node.id = "svg1";
     node.data = link;
     node.type = "image/svg+xml";
@@ -158,6 +261,43 @@ function elt(type) {
         node.appendChild(child);
     }
     return node;
+}
+function card2num(card){
+    "use strict";
+    if(card == "k"){
+        return 10;
+    }
+    else if(card == "q"){
+        return 10;
+    }
+    else if(card == "j"){
+        return 10;
+    }
+    else if(card == "a"){
+        return 0;
+    }
+    else{
+        return parseInt(card);
+    }
+}
+function end_game(playerScore_div,cpuScore_div,cpu_div,cpu_sum,str){
+    "use strict";
+    console.log(str);
+    playerScore_div.replaceChild(elt("strong",str),playerScore_div.getElementsByTagName('strong')[0]);
+    cpuScore_div.replaceChild(elt("strong","Computer Total:" + cpu_sum.toString()),cpuScore_div.getElementsByTagName('strong')[0]);
+    cpu_div.querySelectorAll(".hidden").forEach(function(x){x.classList.remove("hidden")});
+    document.querySelectorAll("button").forEach(function(x){
+        x.style.display = "none"
+    });
+    const Replay = document.createElement("button");
+
+    Replay.appendChild(elt("strong","   Replay   "));
+    Replay.classList.add("button");
+    document.querySelector(".game").appendChild(Replay);
+    Replay.addEventListener('click',function(event){
+        console.log("refresh");
+        window.location.reload();
+    });
 }
 document.addEventListener('DOMContentLoaded', main);
 

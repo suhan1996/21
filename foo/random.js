@@ -80,3 +80,5 @@ function arr_diff (a1, a2) {
     return diff;
 };
 //console.log(arr_diff(cards(),[1,2,3]));
+let a = [1,2,4]
+console.log(a.splice(0,1),a)
